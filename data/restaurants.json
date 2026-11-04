@@ -26,5 +26,61 @@
     "lng": 128.1550,
     "naver_search_url": "https://map.naver.com/p/search/상주 무양주택",
     "tags": ["연구실픽", "감성카페", "크림라떼", "디저트"]
+  },
+  {
+    "id": 3,
+    "name": "선산 김치 곱창",
+    "category": "회식/고기",
+    "signature": "김치 곱창전골, 볶음밥",
+    "price_range": "10,000원 ~ 15,000원",
+    "rating": 4.7,
+    "lab_review": "얼큰하고 칼칼한 김치 곱창전골에 라면사리와 볶음밥은 국룰! 연구실 회식 및 든든한 저녁 메뉴로 강력 추천.",
+    "address": "경상북도 상주시 성동로 16",
+    "lat": 36.4135,
+    "lng": 128.1709,
+    "naver_search_url": "https://map.naver.com/p/search/상주 선산김치곱창",
+    "tags": ["곱창전골", "회식추천", "칼칼한국물", "성동동"]
+  },
+  {
+    "id": 4,
+    "name": "신라스시",
+    "category": "일식",
+    "signature": "모둠 초밥, 특선 스시 세트, 연어 초밥",
+    "price_range": "12,000원 ~ 25,000원",
+    "rating": 4.6,
+    "lab_review": "신선한 네타와 깔끔한 손맛의 상주 로컬 스시 맛집. 정갈하고 맛있는 초밥이 생각날 때 연구원들이 찾는 일식당.",
+    "address": "경상북도 상주시 서문동",
+    "lat": 36.4150,
+    "lng": 128.1580,
+    "naver_search_url": "https://map.naver.com/p/search/상주 신라스시",
+    "tags": ["일식", "초밥", "스시맛집", "점심추천"]
+  },
+  {
+    "id": 5,
+    "name": "양식당",
+    "category": "양식",
+    "signature": "수제 파스타, 리조또, 스테이크 플레이트",
+    "price_range": "13,000원 ~ 28,000원",
+    "rating": 4.6,
+    "lab_review": "상주 복룡동 인근 분위기 좋은 양식 레스토랑. 감각적인 요리와 정갈한 파스타로 특별한 날 식사하기 좋은 곳.",
+    "address": "경상북도 상주시 복룡동",
+    "lat": 36.4185,
+    "lng": 128.1720,
+    "naver_search_url": "https://map.naver.com/p/search/상주 양식당",
+    "tags": ["양식", "파스타", "분위기", "데이트"]
+  },
+  {
+    "id": 6,
+    "name": "상주공간",
+    "category": "카페",
+    "signature": "브런치 플레이트, 시그니처 커피, 수제 베이커리",
+    "price_range": "6,000원 ~ 14,000원",
+    "rating": 4.8,
+    "lab_review": "상주 남성동 골목에 위치한 아늑하고 감각적인 브런치 카페. 주말 브런치나 여유로운 미팅에 안성맞춤입니다.",
+    "address": "경상북도 상주시 남성2길 22",
+    "lat": 36.4132,
+    "lng": 128.1640,
+    "naver_search_url": "https://map.naver.com/p/search/상주공간",
+    "tags": ["브런치", "감성카페", "디저트", "남성동"]
   }
 ]
