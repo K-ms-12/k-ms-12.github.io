@@ -2,8 +2,8 @@
 // ACE² Lab 상주 맛집 지도 & 룰렛 애플리케이션
 // ==========================================
 
-// 기본 설정 및 정확한 중심 좌표 (경북대학교 상주캠퍼스 실제 좌표: 경상대로 2559)
-const CAMPUS_COORDS = [36.3775, 128.1450]; // 경북대 상주캠퍼스 실제 본관/캠퍼스 중심
+// 기본 설정 및 정확한 중심 좌표 (경북대학교 상주캠퍼스 7호관 ACE² Lab: 경상대로 2559)
+const CAMPUS_COORDS = [36.3778, 128.1448]; // 경북대 상주캠퍼스 7호관 (ACE² Lab)
 const DEFAULT_CENTER = [36.4300, 128.1600]; // 상주캠퍼스, 시내, 외서면 조망 뷰
 const DEFAULT_ZOOM = 11;
 
@@ -55,16 +55,22 @@ function initMap() {
     attribution: '&copy; OpenStreetMap contributors | ACE² Lab'
   }).addTo(map);
 
-  // 캠퍼스 메인 랜드마크 마커 (경북대 시그니처 레드)
+  // 캠퍼스 메인 랜드마크 마커 (7호관 ACE² Lab)
   const campusIcon = L.divIcon({
     className: 'custom-campus-marker',
-    html: `<div style="background:#b91c1c;color:#fff;padding:4px 8px;border-radius:12px;font-size:11px;font-weight:700;white-space:nowrap;box-shadow:0 2px 6px rgba(0,0,0,0.3);"><i class="fa-solid fa-graduation-cap"></i> 경북대 상주캠퍼스</div>`,
-    iconSize: [120, 24],
-    iconAnchor: [60, 12]
+    html: `<div style="background:#b91c1c;color:#fff;padding:5px 10px;border-radius:12px;font-size:12px;font-weight:700;white-space:nowrap;box-shadow:0 3px 8px rgba(0,0,0,0.35);border:1.5px solid #fff;display:inline-flex;align-items:center;gap:5px;"><i class="fa-solid fa-flask"></i> 7호관 ACE² Lab</div>`,
+    iconSize: [140, 26],
+    iconAnchor: [70, 13]
   });
   L.marker(CAMPUS_COORDS, { icon: campusIcon })
     .addTo(map)
-    .bindPopup('<strong>경북대학교 상주캠퍼스</strong><br>ACE² Lab 연구실 위치');
+    .bindPopup(`
+      <div style="padding:4px;min-width:180px;">
+        <strong style="font-size:14px;color:#0f172a;">경북대 상주캠퍼스 7호관</strong><br>
+        <span style="font-size:12px;color:#b91c1c;font-weight:700;"><i class="fa-solid fa-flask"></i> ACE² Lab</span><br>
+        <small style="color:#64748b;font-size:11px;">(Active Cognition, Embodiment & Environment)</small>
+      </div>
+    `);
 }
 
 // 2. 맛집 데이터 로드 (JSON fetch + Fallback)
