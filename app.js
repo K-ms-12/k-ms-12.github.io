@@ -132,12 +132,12 @@ async function loadRestaurants() {
         signature: "모둠 초밥, 특선 스시 세트, 연어 초밥",
         price_range: "12,000원 ~ 25,000원",
         rating: 4.6,
-        lab_review: "신선한 네타와 깔끔한 손맛의 상주 로컬 스시 맛집. 정갈하고 맛있는 초밥이 생각날 때 연구원들이 찾는 일식당.",
-        address: "경상북도 상주시 서문동",
-        lat: 36.4150,
-        lng: 128.1580,
-        naver_search_url: "https://map.naver.com/p/search/상주 신라스시",
-        tags: ["일식", "초밥", "스시맛집", "점심추천"]
+        lab_review: "상주 서문동(서문사거리 인근)에 위치한 신선한 네타와 깔끔한 손맛의 로컬 스시 맛집. 정갈하고 맛있는 초밥이 생각날 때 연구원들이 즐겨 찾는 일식당.",
+        address: "경상북도 상주시 서문동 51-5 (삼백로 121)",
+        lat: 36.4162,
+        lng: 128.1583,
+        naver_search_url: "https://map.naver.com/p/search/상주 서문동 51-5",
+        tags: ["일식", "초밥", "스시맛집", "서문동", "점심추천"]
       },
       {
         id: 5,
