@@ -2,8 +2,8 @@
 // ACE² Lab 상주 맛집 지도 & 룰렛 애플리케이션
 // ==========================================
 
-// 기본 설정 및 정확한 중심 좌표 (경북대학교 상주캠퍼스 7호관 ACE² Lab: 경상대로 2559)
-const CAMPUS_COORDS = [36.3778, 128.1448]; // 경북대 상주캠퍼스 7호관 (ACE² Lab)
+// 기본 설정 및 정확한 중심 좌표 (경북대학교 상주캠퍼스 제7호관 ACE² Lab: 07번 건물)
+const CAMPUS_COORDS = [36.3798, 128.1456]; // 경북대 상주캠퍼스 7호관 (ACE² Lab 실제 건물 좌표)
 const DEFAULT_CENTER = [36.4300, 128.1600]; // 상주캠퍼스, 시내, 외서면 조망 뷰
 const DEFAULT_ZOOM = 11;
 
@@ -357,9 +357,9 @@ function setupEventListeners() {
     renderApp();
   });
 
-  // 캠퍼스 중심 리셋
+  // 캠퍼스 7호관 ACE² Lab 중심 리셋 (건물 레벨 정밀 줌인)
   resetMapBtn.addEventListener('click', () => {
-    map.flyTo(CAMPUS_COORDS, 14, { animate: true });
+    map.flyTo(CAMPUS_COORDS, 17, { animate: true });
   });
 
   // 룰렛 모달 트리거
