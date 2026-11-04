@@ -547,6 +547,56 @@ body {
   padding: 1rem;
 }
 
+/* 룰렛 카테고리 선택 영역 */
+.roulette-category-wrap {
+  margin-bottom: 1.25rem;
+  background: #f8fafc;
+  padding: 0.85rem 1rem;
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  text-align: left;
+}
+
+.roulette-cat-label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--secondary);
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.roulette-cat-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.roulette-chip {
+  padding: 0.35rem 0.65rem;
+  border-radius: 16px;
+  border: 1px solid var(--border-color);
+  background: #ffffff;
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: #475569;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.roulette-chip:hover {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+}
+
+.roulette-chip.active {
+  background: var(--primary);
+  color: #ffffff;
+  border-color: var(--primary);
+  box-shadow: 0 2px 5px rgba(197, 27, 39, 0.25);
+}
+
 .modal-backdrop.open {
   display: flex;
 }

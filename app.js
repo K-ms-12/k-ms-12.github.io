@@ -274,13 +274,37 @@ function highlightCard(id) {
 
 // 7. '오늘 뭐 먹을까' 룰렛 / 주사위 추첨 로직
 let isRolling = false;
+let rouletteCategory = 'MEAL'; // 기본값: 식사류 전체 (카페 자동 제외)
 
 function openRoulette() {
   rouletteModal.classList.add('open');
   resultCard.classList.add('hidden');
-  rollerName.textContent = "주사위를 굴려보세요!";
-  rollerSub.textContent = "ACE² Lab 선정 맛집 중 하나가 결정됩니다.";
+  updateRoulettePlaceholder();
   diceGraphic.style.transform = "rotate(0deg)";
+}
+
+function updateRoulettePlaceholder() {
+  const pool = getRoulettePool();
+  if (pool.length === 0) {
+    rollerName.textContent = "등록된 맛집이 없습니다";
+    rollerSub.textContent = "다른 카테고리를 선택해 보세요.";
+    startRouletteBtn.disabled = true;
+  } else {
+    rollerName.textContent = "주사위를 굴려보세요!";
+    rollerSub.textContent = `현재 선택된 ${pool.length}개 후보 중 하나가 결정됩니다.`;
+    startRouletteBtn.disabled = false;
+  }
+}
+
+function getRoulettePool() {
+  if (rouletteCategory === 'MEAL') {
+    // 밥 먹을 땐 카페 자동 제외!
+    return restaurants.filter(r => r.category !== '카페');
+  } else if (rouletteCategory === 'ALL') {
+    return restaurants;
+  } else {
+    return restaurants.filter(r => r.category === rouletteCategory);
+  }
 }
 
 function closeRoulette() {
@@ -289,7 +313,8 @@ function closeRoulette() {
 }
 
 function runDiceRoulette() {
-  if (isRolling || restaurants.length === 0) return;
+  const pool = getRoulettePool();
+  if (isRolling || pool.length === 0) return;
   isRolling = true;
 
   startRouletteBtn.disabled = true;
@@ -302,21 +327,21 @@ function runDiceRoulette() {
 
   const interval = setInterval(() => {
     counter++;
-    const randomPick = restaurants[Math.floor(Math.random() * restaurants.length)];
+    const randomPick = pool[Math.floor(Math.random() * pool.length)];
     rollerName.textContent = randomPick.name;
     rollerSub.textContent = `${randomPick.category} | ${randomPick.signature}`;
     diceGraphic.style.transform = `rotate(${counter * 50}deg) scale(1.15)`;
 
     if (counter >= totalRounds) {
       clearInterval(interval);
-      finalizePick();
+      finalizePick(pool);
     }
   }, intervalTime);
 }
 
-function finalizePick() {
+function finalizePick(pool) {
   // 최종 결과 선택
-  const finalPick = restaurants[Math.floor(Math.random() * restaurants.length)];
+  const finalPick = pool[Math.floor(Math.random() * pool.length)];
   isRolling = false;
   startRouletteBtn.disabled = false;
 
@@ -386,6 +411,21 @@ function setupEventListeners() {
   rouletteBtn.addEventListener('click', openRoulette);
   closeModalBtn.addEventListener('click', closeRoulette);
   startRouletteBtn.addEventListener('click', runDiceRoulette);
+
+  // 룰렛 카테고리 칩 선택
+  const rouletteCatChipsEl = document.getElementById('rouletteCatChips');
+  if (rouletteCatChipsEl) {
+    rouletteCatChipsEl.addEventListener('click', (e) => {
+      const chip = e.target.closest('.roulette-chip');
+      if (!chip) return;
+
+      document.querySelectorAll('.roulette-chip').forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      rouletteCategory = chip.dataset.target;
+      resultCard.classList.add('hidden');
+      updateRoulettePlaceholder();
+    });
+  }
 
   // 모달 바깥 클릭 시 닫기
   rouletteModal.addEventListener('click', (e) => {

@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
   <!-- FontAwesome 아이콘 -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-  <link rel="stylesheet" href="style.css?v=15.0" />
+  <link rel="stylesheet" href="style.css?v=16.0" />
 </head>
 <body>
   <!-- 상단 네비게이션 바 -->
@@ -94,6 +94,22 @@
         <p>선택 장애를 겪는 연구원들을 위한 랜덤 메뉴 추첨기</p>
       </div>
 
+      <!-- 룰렛 카테고리 필터 (식사 vs 카페 등 선택) -->
+      <div class="roulette-category-wrap">
+        <div class="roulette-cat-label"><i class="fa-solid fa-filter"></i> 추천 대상 선택:</div>
+        <div class="roulette-cat-chips" id="rouletteCatChips">
+          <button class="roulette-chip active" data-target="MEAL">🍚 식사류 (카페 제외)</button>
+          <button class="roulette-chip" data-target="한식">한식</button>
+          <button class="roulette-chip" data-target="일식">일식</button>
+          <button class="roulette-chip" data-target="중식">중식</button>
+          <button class="roulette-chip" data-target="양식">양식</button>
+          <button class="roulette-chip" data-target="분식">분식</button>
+          <button class="roulette-chip" data-target="회식/고기">고기/회식</button>
+          <button class="roulette-chip" data-target="카페">☕ 카페만</button>
+          <button class="roulette-chip" data-target="ALL">전체</button>
+        </div>
+      </div>
+
       <!-- 룰렛 디스플레이 박스 -->
       <div class="roulette-box">
         <div class="dice-animation" id="diceGraphic">
@@ -134,7 +150,7 @@
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
   <!-- Canvas Confetti (축하 효과) -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-  <!-- 메인 애플리케이션 JS (캐시 방지 v15.0) -->
-  <script src="app.js?v=15.0"></script>
+  <!-- 메인 애플리케이션 JS (캐시 방지 v16.0) -->
+  <script src="app.js?v=16.0"></script>
 </body>
 </html>
