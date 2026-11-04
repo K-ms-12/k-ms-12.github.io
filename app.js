@@ -203,6 +203,8 @@ function createCustomMarker(item) {
   let iconClass = 'fa-utensils';
   if (item.category === '카페') iconClass = 'fa-mug-saucer';
   else if (item.category === '중식') iconClass = 'fa-bowl-rice';
+  else if (item.category === '일식') iconClass = 'fa-fish';
+  else if (item.category === '회식/고기') iconClass = 'fa-drumstick-bite';
 
   const redPinIcon = L.divIcon({
     className: 'custom-red-pin',
