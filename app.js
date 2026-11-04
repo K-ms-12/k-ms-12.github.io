@@ -198,14 +198,24 @@ function renderApp() {
   });
 }
 
-// 5. 마커 생성 및 팝업 설정 (빨간색 핀 마커)
+// 5. 마커 생성 및 팝업 설정 (추천 1: 코랄 레드 + 두꺼운 화이트 테두리)
 function createCustomMarker(item) {
+  let iconClass = 'fa-utensils';
+  if (item.category === '카페') iconClass = 'fa-mug-saucer';
+  else if (item.category === '중식') iconClass = 'fa-bowl-rice';
+
   const redPinIcon = L.divIcon({
     className: 'custom-red-pin',
-    html: `<div class="pin-marker"><i class="fa-solid fa-location-dot"></i></div>`,
-    iconSize: [30, 42],
-    iconAnchor: [15, 40],
-    popupAnchor: [0, -36]
+    html: `
+      <div class="pin-container">
+        <div class="pin-icon-wrap" title="${item.name}">
+          <i class="fa-solid ${iconClass}"></i>
+        </div>
+      </div>
+    `,
+    iconSize: [0, 0],
+    iconAnchor: [0, 0],
+    popupAnchor: [0, -38]
   });
 
   const marker = L.marker([item.lat, item.lng], { icon: redPinIcon });

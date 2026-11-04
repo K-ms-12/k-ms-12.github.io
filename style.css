@@ -429,14 +429,48 @@ body {
   box-shadow: var(--shadow-lg);
 }
 
-/* 빨간색 핀 마커 스타일 */
+/* 추천 1: 네이버/카카오맵 스타일 코랄 레드 + 두꺼운 화이트 테두리 핀 */
 .custom-red-pin {
   background: transparent;
   border: none;
 }
 
+.pin-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  transform: translate(-50%, -100%);
+}
+
+.pin-icon-wrap {
+  width: 36px;
+  height: 36px;
+  background: #ff4757; /* 선명한 코랄 레드 (추천 1) */
+  border: 3px solid #ffffff; /* 두꺼운 화이트 테두리 */
+  border-radius: 50% 50% 50% 0;
+  transform: rotate(-45deg);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.pin-icon-wrap i {
+  transform: rotate(45deg);
+  color: #ffffff;
+  font-size: 15px;
+}
+
+.pin-container:hover .pin-icon-wrap {
+  transform: rotate(-45deg) scale(1.25);
+  background: #ee5253;
+  box-shadow: 0 6px 14px rgba(255, 71, 87, 0.5);
+}
+
 .pin-marker {
-  color: #c51b27; /* 경북대 크림슨 레드 */
+  color: #c51b27;
   font-size: 32px;
   filter: drop-shadow(0 3px 5px rgba(0, 0, 0, 0.35));
   transition: transform 0.2s ease;
@@ -444,11 +478,6 @@ body {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-}
-
-.pin-marker:hover {
-  transform: scale(1.25);
-  color: #991b1b;
 }
 
 .popup-container {
