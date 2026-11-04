@@ -55,10 +55,10 @@ function initMap() {
     attribution: '&copy; OpenStreetMap contributors | ACE² Lab'
   }).addTo(map);
 
-  // 캠퍼스 메인 랜드마크 마커
+  // 캠퍼스 메인 랜드마크 마커 (경북대 시그니처 레드)
   const campusIcon = L.divIcon({
     className: 'custom-campus-marker',
-    html: `<div style="background:#1e3a8a;color:#fff;padding:4px 8px;border-radius:12px;font-size:11px;font-weight:700;white-space:nowrap;box-shadow:0 2px 6px rgba(0,0,0,0.3);"><i class="fa-solid fa-graduation-cap"></i> 경북대 상주캠퍼스</div>`,
+    html: `<div style="background:#b91c1c;color:#fff;padding:4px 8px;border-radius:12px;font-size:11px;font-weight:700;white-space:nowrap;box-shadow:0 2px 6px rgba(0,0,0,0.3);"><i class="fa-solid fa-graduation-cap"></i> 경북대 상주캠퍼스</div>`,
     iconSize: [120, 24],
     iconAnchor: [60, 12]
   });

@@ -1,7 +1,7 @@
 :root {
-  --primary: #2563eb;
-  --primary-hover: #1d4ed8;
-  --primary-light: #eff6ff;
+  --primary: #c51b27; /* 경북대학교 공식 크림슨 레드 (KNU Red) */
+  --primary-hover: #a1131e;
+  --primary-light: #fef2f2;
   --secondary: #0f172a;
   --accent: #f59e0b;
   --bg-main: #f8fafc;
@@ -53,7 +53,7 @@ body {
 }
 
 .brand-badge {
-  background: linear-gradient(135deg, #1e3a8a, #2563eb);
+  background: linear-gradient(135deg, #881337, #c51b27); /* 경북대학교 시그니처 레드 */
   color: #fff;
   padding: 0.3rem 0.65rem;
   border-radius: 6px;
@@ -130,9 +130,9 @@ body {
 }
 
 @keyframes pulse {
-  0% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.4); }
-  70% { box-shadow: 0 0 0 10px rgba(37, 99, 235, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0); }
+  0% { box-shadow: 0 0 0 0 rgba(197, 27, 39, 0.4); }
+  70% { box-shadow: 0 0 0 10px rgba(197, 27, 39, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(197, 27, 39, 0); }
 }
 
 /* 메인 레이아웃 */
@@ -283,7 +283,7 @@ body {
 .restaurant-card.active {
   border-color: var(--primary);
   background-color: var(--primary-light);
-  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+  box-shadow: 0 0 0 2px rgba(197, 27, 39, 0.2);
 }
 
 .card-top {
@@ -302,7 +302,7 @@ body {
 .card-category {
   font-size: 0.75rem;
   color: var(--primary);
-  background-color: #dbeafe;
+  background-color: #fee2e2;
   padding: 0.15rem 0.5rem;
   border-radius: 4px;
   font-weight: 600;
