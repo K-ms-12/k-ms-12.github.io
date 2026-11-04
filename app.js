@@ -166,6 +166,20 @@ async function loadRestaurants() {
         lng: 128.1640,
         naver_search_url: "https://map.naver.com/p/search/상주공간",
         tags: ["브런치", "감성카페", "디저트", "남성동"]
+      },
+      {
+        id: 7,
+        name: "노고록",
+        category: "한식",
+        signature: "한우곰탕, 돼지곰탕, 지슬사리곰탕",
+        price_range: "8,000원 ~ 12,000원",
+        rating: 4.8,
+        lab_review: "제주 서귀포 중문동에 위치한 정갈하고 맑은 곰탕 맛집. '여유롭고 편안하게'라는 뜻의 제주어처럼 깔끔한 분위기와 깊은 국물이 일품으로, 학회나 제주 일정 시 든든한 식사로 손꼽히는 곳.",
+        address: "제주특별자치도 서귀포시 천제연로207번길 7 가동 1층 103호",
+        lat: 33.2523,
+        lng: 126.4266,
+        naver_search_url: "https://map.naver.com/p/search/제주 서귀포 노고록",
+        tags: ["한식", "곰탕", "제주도", "중문맛집", "착한가격"]
       }
     ];
   }
