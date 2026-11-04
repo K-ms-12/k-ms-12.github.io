@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ACE² Lab | 상주 캠퍼스 연구실 맛집 지도</title>
+  <!-- Pretendard 폰트 -->
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
+  <!-- Leaflet 지도 라이브러리 (API Key 불필요) -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+  <!-- FontAwesome 아이콘 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- 상단 네비게이션 바 -->
+  <header class="navbar">
+    <div class="nav-brand">
+      <div class="brand-badge"><i class="fa-solid fa-flask"></i> ACE² Lab</div>
+      <h1>상주 맛집 아카이브 <span class="sub-title">| 연구실 큐레이션 지도</span></h1>
+    </div>
+    <div class="nav-actions">
+      <button id="rouletteBtn" class="btn btn-primary pulse-btn">
+        <i class="fa-solid fa-dice"></i> 오늘 뭐 먹을까?
+      </button>
+      <a href="https://github.com" target="_blank" class="btn btn-outline" id="githubRepoLink">
+        <i class="fa-brands fa-github"></i> GitHub
+      </a>
+    </div>
+  </header>
+
+  <!-- 메인 레이아웃 (필터 + 사이드바 리스트 + 지도) -->
+  <div class="app-container">
+    <!-- 좌측 사이드바: 검색/필터/리스트 -->
+    <aside class="sidebar">
+      <div class="search-box">
+        <i class="fa-solid fa-magnifying-glass search-icon"></i>
+        <input type="text" id="searchInput" placeholder="식당 이름, 메뉴, 태그 검색..." />
+      </div>
+
+      <!-- 카테고리 필터 태그 -->
+      <div class="category-filters" id="categoryFilters">
+        <button class="filter-chip active" data-category="ALL">전체 <span class="chip-count" id="countAll">0</span></button>
+        <button class="filter-chip" data-category="한식">🍚 한식</button>
+        <button class="filter-chip" data-category="중식">🥢 중식</button>
+        <button class="filter-chip" data-category="양식">🍕 양식</button>
+        <button class="filter-chip" data-category="분식">🍢 분식</button>
+        <button class="filter-chip" data-category="회식/고기">🥩 회식/고기</button>
+        <button class="filter-chip" data-category="카페">☕ 카페</button>
+      </div>
+
+      <!-- 정렬 및 결과 요약 -->
+      <div class="list-header">
+        <span id="resultSummary">총 <strong>0</strong>개의 맛집</span>
+        <div class="sort-wrap">
+          <label for="sortSelect"><i class="fa-solid fa-arrow-down-wide-short"></i></label>
+          <select id="sortSelect">
+            <option value="rating">평점 높은 순</option>
+            <option value="name">이름 가나다 순</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- 맛집 카드 리스트 컨테이너 -->
+      <div class="restaurant-list" id="restaurantList">
+        <!-- JS로 동적 렌더링 -->
+      </div>
+    </aside>
+
+    <!-- 우측 메인 영역: 지도 -->
+    <main class="map-wrapper">
+      <div id="map"></div>
+      
+      <!-- 지도 위 플로팅 컨트롤 -->
+      <div class="map-floating-panel">
+        <button id="resetMapBtn" class="floating-btn" title="경북대 상주캠퍼스 중심으로 리셋">
+          <i class="fa-solid fa-location-crosshairs"></i> 캠퍼스 중심
+        </button>
+      </div>
+
+      <!-- 기술 검토 안내 배너 -->
+      <div class="tech-badge">
+        <span class="status-dot"></span> 연구실 자체 큐레이션 DB & OpenMap 연동 (Naver Place 연계)
+      </div>
+    </main>
+  </div>
+
+  <!-- '오늘 뭐 먹을까' 랜덤 주사위/룰렛 모달 -->
+  <div class="modal-backdrop" id="rouletteModal">
+    <div class="modal-content">
+      <button class="modal-close" id="closeModalBtn">&times;</button>
+      
+      <div class="modal-header">
+        <div class="modal-icon"><i class="fa-solid fa-utensils"></i></div>
+        <h2>오늘 연구실 점심 뭐 먹지?</h2>
+        <p>선택 장애를 겪는 연구원들을 위한 랜덤 메뉴 추첨기</p>
+      </div>
+
+      <!-- 룰렛 디스플레이 박스 -->
+      <div class="roulette-box">
+        <div class="dice-animation" id="diceGraphic">
+          <i class="fa-solid fa-dice-d20 fa-spin-pulse"></i>
+        </div>
+        <div class="roulette-roller" id="rouletteRoller">
+          <div class="roller-text" id="rollerName">주사위를 굴려보세요!</div>
+          <div class="roller-sub" id="rollerSub">ACE² Lab 선정 맛집 중 하나가 결정됩니다.</div>
+        </div>
+      </div>
+
+      <!-- 추첨 결과 카드 (선택 완료 시 노출) -->
+      <div class="result-card hidden" id="resultCard">
+        <div class="result-badge" id="resultBadge">🏆 오늘의 당첨 픽!</div>
+        <h3 id="resultName">식당 이름</h3>
+        <p class="result-signature" id="resultSignature">대표 메뉴: -</p>
+        <div class="result-review" id="resultReview">"연구실 코멘트"</div>
+        <div class="result-actions">
+          <button class="btn btn-primary" id="focusMapBtn">
+            <i class="fa-solid fa-location-dot"></i> 지도에서 위치 확인
+          </button>
+          <a href="#" target="_blank" class="btn btn-outline" id="resultNaverLink">
+            <i class="fa-solid fa-arrow-up-right-from-square"></i> 네이버 플레이스
+          </a>
+        </div>
+      </div>
+
+      <!-- 모달 하단 버튼 -->
+      <div class="modal-footer">
+        <button class="btn btn-primary btn-lg" id="startRouletteBtn">
+          <i class="fa-solid fa-shuffle"></i> 굴리기 (Roll Dice!)
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Leaflet 지도 JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <!-- Canvas Confetti (축하 효과) -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <!-- 메인 애플리케이션 JS -->
+  <script src="app.js"></script>
+</body>
+</html>
