@@ -2,10 +2,10 @@
 // ACE² Lab 상주 맛집 지도 & 룰렛 애플리케이션
 // ==========================================
 
-// 기본 설정 및 중심 좌표 (경북대학교 상주캠퍼스 및 상주 시내 중심)
+// 기본 설정 및 중심 좌표 (경북대학교 상주캠퍼스, 시내 무양주택, 외서면 청자가 한눈에 보이는 뷰)
 const CAMPUS_COORDS = [36.3888, 128.1633]; // 상주캠퍼스
-const DEFAULT_CENTER = [36.4100, 128.1600]; // 상주 시내와 캠퍼스 중간 뷰
-const DEFAULT_ZOOM = 13;
+const DEFAULT_CENTER = [36.4350, 128.1650]; // 상주 전역 조망 뷰
+const DEFAULT_ZOOM = 12;
 
 let map;
 let markers = [];
@@ -75,67 +75,35 @@ async function loadRestaurants() {
     restaurants = await res.json();
   } catch (error) {
     console.warn('JSON 직접 로드 실패 (file:// 프로토콜 등). 기본 내장 데이터를 활용합니다.', error);
-    // file:// 로 직접 더블클릭해서 열 때를 위한 Fallback 데이터
+    // Fallback 데이터 (실제 주소 기반 2곳)
     restaurants = [
       {
-        id: 1, name: "부자돼지", category: "회식/고기", signature: "꽈리고추 생삼겹살",
-        price_range: "15,000원대", rating: 4.8, lab_review: "교수님 및 연구실원 만장일치 회식 명소! 꽈리고추와 삼겹살의 조합이 일품입니다.",
-        address: "경북 상주시 삼백로 159", lat: 36.4132, lng: 128.1605,
-        naver_search_url: "https://map.naver.com/p/search/상주 부자돼지", tags: ["연구실추천", "회식", "삼겹살"]
+        id: 1,
+        name: "청자",
+        category: "중식",
+        signature: "불맛 짬뽕, 탕수육, 짜장면",
+        price_range: "8,000원 ~ 20,000원",
+        rating: 4.8,
+        lab_review: "상주 외서면 북상주로의 숨은 로컬 찐 맛집! 얼큰한 불맛 짬뽕과 바삭한 탕수육으로 연구실원들이 손꼽는 중식당입니다.",
+        address: "경상북도 상주시 외서면 북상주로 539-5",
+        lat: 36.4782,
+        lng: 128.1733,
+        naver_search_url: "https://map.naver.com/p/search/상주 외서면 청자",
+        tags: ["연구실추천", "로컬맛집", "짬뽕", "중식"]
       },
       {
-        id: 2, name: "고려분식", category: "분식", signature: "수제 군만두, 매콤 쫄면",
-        price_range: "6,000원 ~ 8,000원", rating: 4.6, lab_review: "상주 중앙시장 40년 전통의 노포. 바삭한 군만두와 새콤달콤 쫄면은 점심 힐링 메뉴입니다.",
-        address: "경북 상주시 중앙시장길 29", lat: 36.4158, lng: 128.1631,
-        naver_search_url: "https://map.naver.com/p/search/상주 고려분식", tags: ["가성비", "시장맛집", "점심추천"]
-      },
-      {
-        id: 3, name: "명실상감한우", category: "한식", signature: "상감한우탕 (일일 한정)",
-        price_range: "14,000원 ~ 30,000원", rating: 4.7, lab_review: "상주 최고 품질의 한우 전문점. 든든한 점심 특선 갈비탕과 랩미팅 후 점심으로 강력 추천.",
-        address: "경북 상주시 영남제일로 1119-9", lat: 36.4258, lng: 128.1725,
-        naver_search_url: "https://map.naver.com/p/search/상주 명실상감한우", tags: ["연구실픽", "몸보신", "한우"]
-      },
-      {
-        id: 4, name: "서보칼국수", category: "한식", signature: "손칼국수, 배추전",
-        price_range: "7,000원대", rating: 4.5, lab_review: "맑고 깊은 국물의 전통 경상도식 누름국수. 비 오는 날 연구실 동기들과 가기 딱 좋습니다.",
-        address: "경북 상주시 상산로 247", lat: 36.4120, lng: 128.1560,
-        naver_search_url: "https://map.naver.com/p/search/상주 서보칼국수", tags: ["가성비", "비오는날", "칼국수"]
-      },
-      {
-        id: 5, name: "무양주택", category: "카페", signature: "무양 크림라떼, 수제 디저트",
-        price_range: "5,000원대", rating: 4.7, lab_review: "오래된 옛 주택을 개조한 감성 카페. 논문 읽거나 조용히 아이디어 회의하기 좋은 아늑한 공간입니다.",
-        address: "경북 상주시 무양동 38-1", lat: 36.4180, lng: 128.1528,
-        naver_search_url: "https://map.naver.com/p/search/상주 무양주택", tags: ["연구실미팅", "디저트", "감성카페"]
-      },
-      {
-        id: 6, name: "상주캠퍼스 대학가 밥집 (가장골)", category: "한식", signature: "제육볶음 정식, 김치찌개",
-        price_range: "8,000원대", rating: 4.4, lab_review: "경북대 상주캠 정문 인근. 넉넉한 인심과 무한리필 밥/반찬으로 대학원생 지갑을 지켜주는 든든한 밥집.",
-        address: "경북 상주시 경상대로 2560 (대학가)", lat: 36.3892, lng: 128.1639,
-        naver_search_url: "https://map.naver.com/p/search/경북대 상주캠퍼스 맛집", tags: ["캠퍼스인근", "점심추천", "가성비"]
-      },
-      {
-        id: 7, name: "남산가든", category: "한식", signature: "석쇠구이, 고추장불고기",
-        price_range: "11,000원대", rating: 4.6, lab_review: "불향 가득한 석쇠 불고기 쌈밥. 타지에서 손님이나 가족이 방문했을 때 모시고 가기 좋습니다.",
-        address: "경북 상주시 남산공원길 45", lat: 36.4020, lng: 128.1680,
-        naver_search_url: "https://map.naver.com/p/search/상주 남산가든", tags: ["연구실픽", "불고기", "손님대접"]
-      },
-      {
-        id: 8, name: "영화루", category: "중식", signature: "해물 짬뽕, 탕수육",
-        price_range: "8,000원 ~ 12,000원", rating: 4.3, lab_review: "불맛 가득한 얼큰한 짬뽕으로 밤샘 연구 다음 날 해장하기에 최적화된 중식당.",
-        address: "경북 상주시 중앙로 112", lat: 36.4140, lng: 128.1590,
-        naver_search_url: "https://map.naver.com/p/search/상주 영화루", tags: ["해장", "짬뽕", "점심추천"]
-      },
-      {
-        id: 9, name: "파스타부오노 상주점", category: "양식", signature: "봉골레 파스타, 시카고 피자",
-        price_range: "9,000원 ~ 14,000원", rating: 4.2, lab_review: "음료 무료 제공과 부담 없는 가격으로 대학생/대학원생들에게 인기 있는 파스타 전문점.",
-        address: "경북 상주시 상산로 260", lat: 36.4130, lng: 128.1580,
-        naver_search_url: "https://map.naver.com/p/search/파스타부오노 상주점", tags: ["가성비", "파스타", "양식"]
-      },
-      {
-        id: 10, name: "카페 플랫하우스", category: "카페", signature: "핸드드립 스페셜티, 바스크 치즈케이크",
-        price_range: "5,000원대", rating: 4.7, lab_review: "조용하고 깔끔한 인테리어로 집중해서 코딩하거나 페이퍼 정리하기에 최적의 공간.",
-        address: "경북 상주시 삼백로 102", lat: 36.4110, lng: 128.1620,
-        naver_search_url: "https://map.naver.com/p/search/상주 플랫하우스", tags: ["조용한카페", "핸드드립", "스터디"]
+        id: 2,
+        name: "무양주택",
+        category: "카페",
+        signature: "무양 크림라떼, 바닐라빈 라떼, 수제 디저트",
+        price_range: "5,000원대",
+        rating: 4.9,
+        lab_review: "상주 동수1길에 위치한 옛 주택 개조 감성 카페. 커피 향이 깊고 조용해서 랩미팅 후 커피 한잔이나 페이퍼 정리하기에 최적입니다.",
+        address: "경상북도 상주시 동수1길 67 무양주택",
+        lat: 36.4197,
+        lng: 128.1550,
+        naver_search_url: "https://map.naver.com/p/search/상주 무양주택",
+        tags: ["연구실픽", "감성카페", "크림라떼", "디저트"]
       }
     ];
   }
