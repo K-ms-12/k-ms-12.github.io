@@ -55,19 +55,19 @@ function initMap() {
     attribution: '&copy; OpenStreetMap contributors | ACE² Lab'
   }).addTo(map);
 
-  // 캠퍼스 메인 랜드마크 마커 (경북대학교 7호관)
+  // 캠퍼스 메인 랜드마크 마커 (경북대학교 ACE2 LAB)
   const campusIcon = L.divIcon({
     className: 'custom-campus-marker',
-    html: `<div style="background:#b91c1c;color:#fff;padding:5px 10px;border-radius:12px;font-size:12px;font-weight:700;white-space:nowrap;box-shadow:0 3px 8px rgba(0,0,0,0.35);border:1.5px solid #fff;display:inline-flex;align-items:center;gap:5px;"><i class="fa-solid fa-graduation-cap"></i> 경북대학교 7호관</div>`,
-    iconSize: [145, 26],
-    iconAnchor: [72, 13]
+    html: `<div style="background:#b91c1c;color:#fff;padding:5px 10px;border-radius:12px;font-size:12px;font-weight:700;white-space:nowrap;box-shadow:0 3px 8px rgba(0,0,0,0.35);border:1.5px solid #fff;display:inline-flex;align-items:center;gap:5px;"><i class="fa-solid fa-flask"></i> 경북대학교 ACE2 LAB</div>`,
+    iconSize: [165, 26],
+    iconAnchor: [82, 13]
   });
   L.marker(CAMPUS_COORDS, { icon: campusIcon })
     .addTo(map)
     .bindPopup(`
       <div style="padding:4px;min-width:180px;">
-        <strong style="font-size:14px;color:#0f172a;">경북대학교 7호관</strong><br>
-        <span style="font-size:12px;color:#b91c1c;font-weight:700;"><i class="fa-solid fa-flask"></i> ACE² Lab</span><br>
+        <strong style="font-size:14px;color:#0f172a;">경북대학교 ACE2 LAB</strong><br>
+        <span style="font-size:12px;color:#b91c1c;font-weight:700;"><i class="fa-solid fa-location-dot"></i> 상주캠퍼스 7호관</span><br>
         <small style="color:#64748b;font-size:11px;">(Active Cognition, Embodiment & Environment)</small>
       </div>
     `);
